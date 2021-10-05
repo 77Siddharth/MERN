@@ -17,7 +17,7 @@ class ApiFeatures {
     return this;
   }
 
-  filter(){
+  filter() {
     const queryCpy = { ...this.queryStr };
     //   const queryCpy = {...this.queryStr.category}; --- why it can't be done like this ??
 
@@ -36,7 +36,13 @@ class ApiFeatures {
 
     return this;
   }
+  pagination(resultPerPage) {
+    let currentPage = Number(this.queryStr.page) || 1;
+    let skip = resultPerPage * (currentPage - 1);
 
+    this.query = this.query.skip(skip).limit(resultPerPage);
+    return this;
+  }
 }
 
 module.exports = ApiFeatures;

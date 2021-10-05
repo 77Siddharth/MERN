@@ -30,9 +30,12 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
 });
 
 exports.getAllProducts = catchAsyncError(async (req, res) => {
+  const resultPerPage = 5;
+
   const apiFeatures = new ApiFeatures(Product.find(), req.query)
     .search()
-    .filter();
+    .filter()
+    .pagination(resultPerPage);
 
   const allProducts = await apiFeatures.query;
 
