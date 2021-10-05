@@ -18,19 +18,25 @@ class ApiFeatures {
   }
 
   filter(){
-      const queryCpy = {...this.queryStr};
+    const queryCpy = { ...this.queryStr };
     //   const queryCpy = {...this.queryStr.category}; --- why it can't be done like this ??
-    
+
     //   Removing other params for category
 
-    const removeFields = ['name','page','limit'];
+    const removeFields = ["name", "page", "limit"];
 
-    removeFields.forEach((key)=>delete queryCpy[key]);
+    removeFields.forEach((key) => delete queryCpy[key]);
 
-    this.query = this.query.find(queryCpy);
+    // filtering price wise
 
-    return this
+    let queryStr = JSON.stringify(queryCpy);
+
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
+    this.query = this.query.find(JSON.parse(queryStr));
+
+    return this;
   }
+
 }
 
 module.exports = ApiFeatures;
