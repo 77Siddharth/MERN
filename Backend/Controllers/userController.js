@@ -201,7 +201,13 @@ exports.updateUserRole = catchAsyncError(async (req, res, next) => {
   }
 
   const user = await User.findByIdAndUpdate(req.params.id,newUserData,{new:true,runValidators:true});
-
+  if (!user)
+    return next(
+      new ErrorHandler(
+        `Could not find user with given ID - ${req.params.id}`,
+        404
+      )
+    );
   res.status(200).json({
     success:true
   })
