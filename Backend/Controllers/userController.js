@@ -167,3 +167,28 @@ exports.updateProfile = catchAsyncError(async (req, res, next) => {
     success:true
   })
 });
+
+// Get All Users ( admin )
+exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+// Get Single user (admin)
+
+exports.getSingleUser = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if(!user)
+    return next(new ErrorHandler(`Wrong User ID - ${req.params.id}`, 400));
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});
+
