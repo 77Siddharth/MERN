@@ -37,7 +37,7 @@ const productSchema = new mongoose.Schema({
   stock: {
     type: Number,
     required: [true, "Please Enter Product Category"],
-    default: 1,
+    default: 10,
   },
   numOfReviews: {
     type: Number,

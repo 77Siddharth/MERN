@@ -80,3 +80,52 @@ exports.getAllOrders = catchAsyncError(async (req, res, next) => {
         totalAmount
     });
 });
+
+// update Order Status -- ADMIN
+exports.updateOrder = catchAsyncError(async (req, res, next) => {
+
+    const order  = await Order.findById(req.params.id);
+
+    if(!order) return next(new ErrorHandler("No orders with given Id" , 404))
+
+    if(order.orderStatus === "Delivered") 
+        return next(new ErrorHandler("This order has been Delivered" , 400));
+
+    order.orderItems.forEach(async(order)=>{
+        await updateStock(order.product, 1);
+    });
+
+    order.orderStatus = req.body.status;
+
+    if(req.body.status === "Delivered"){
+        order.deliverdAt = Date.now();
+    }
+
+    await order.save({validateBeforeSave : false});
+    res.status(200).json({
+        success:true,
+        order
+    });
+});
+
+async function updateStock(productId, quantity){
+    const product = await Product.findById(productId);
+    product.stock -= quantity;
+
+    await product.save({validateBeforeSave : false});
+}
+
+// delete Order-- ADMIN
+exports.deleteOrder = catchAsyncError(async (req, res, next) => {
+
+    const order = await Order.findById(req.params.id);
+
+    if(!order) return next(new ErrorHandler("No order with given ID" , 404))
+
+    await order.remove();
+
+    res.status(200).json({
+        success:true,
+        message: "Order has been deleted"
+    });
+});
