@@ -1,0 +1,56 @@
+footer{
+    margin-top: 10vmax;
+    padding: 2vmax;
+    background-color: rgb(34, 33, 33);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.leftFooter{
+    width: 20%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+.leftFooter > p {
+    text-align: center;
+    font-size: 1.4vmax;
+}
+.leftFooter > img {
+    width: 10vmax;
+    margin: 1vmax;
+    cursor: pointer;
+}
+
+.midFooter{
+    width: 60%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.midFooter > h4{
+    font-size: 3vmax;
+    color: grey;
+}
+
+.rightFooter{
+    width: 20%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+.rightFooter > h4 {
+    font-size: 1.7vmax;
+}
+.rightFooter > a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.4vmax;
+}
+.rightFooter > a:hover {
+    color: grey;
+    transition: all 0.5s;
+}

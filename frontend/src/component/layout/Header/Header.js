@@ -1,6 +1,6 @@
 import React from "react";
 import { ReactNavbar } from "overlay-navbar";
-import logo from "../../images/myStore.png";
+import logo from "../../../images/myStore.png";
 
 function Header() {
   return (
