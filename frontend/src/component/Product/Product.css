@@ -1,0 +1,23 @@
+.productCard {
+    display: flex;
+    flex-direction: column;
+    max-width: 15vmax;
+    margin: 1vmax;
+    border: 1px solid lightblue;
+    padding: 1vmax;
+    text-decoration: none;
+    color: black;
+}
+
+.productPrice{
+    color: rgb(163, 163, 163); 
+}
+.productCard >div>h5{
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 5px;
+}
+.productCard >div{
+    display: flex;
+    justify-content: space-between;
+}
