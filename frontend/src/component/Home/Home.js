@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import MetaData from "../layout/MetaData";
 import Product from "../Product/Product";
 import "./Home.css";
 
@@ -16,6 +17,7 @@ const product = {
 function Home() {
   return (
     <Fragment>
+      <MetaData title="Round the clock Store" />
       <div className="banner">
         <p>Welcome to Round the Clock Store</p>
         <h1>Find Our Products below</h1>
