@@ -8,7 +8,12 @@
     text-decoration: none;
     color: black;
 }
-
+.productCard:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    transition: 0.5s;
+}
 .productPrice{
     color: rgb(163, 163, 163); 
 }
