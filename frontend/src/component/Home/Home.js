@@ -5,6 +5,7 @@ import Product from "../Product/Product";
 import "./Home.css";
 import { useDispatch, useSelector } from "react-redux";
 import loader from "../layout/Loader/loader";
+import { useAlert } from "react-alert";
 
 const product = {
   name: "Tshirt",
@@ -20,13 +21,14 @@ const product = {
 
 function Home() {
   const dispatch = useDispatch();
-
+  //   const alert = useAlert();
   const { loading, error, products, productCount } = useSelector(
     (state) => state.products
   );
   useEffect(() => {
+    //   if (error) return alert.error("error");
     dispatch(getProduct());
-  }, [dispatch]);
+  }, [dispatch, error]);
 
   return loading ? (
     <loader />
