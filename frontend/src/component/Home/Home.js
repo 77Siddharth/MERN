@@ -1,7 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { getProduct } from "../../actions/productAction";
 import MetaData from "../layout/MetaData";
 import Product from "../Product/Product";
 import "./Home.css";
+import { useDispatch, useSelector } from "react-redux";
 
 const product = {
   name: "Tshirt",
@@ -14,7 +16,14 @@ const product = {
   ],
   _id: "somethingTshirt",
 };
+
 function Home() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
+
   return (
     <Fragment>
       <MetaData title="Round the clock Store" />
