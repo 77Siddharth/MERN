@@ -20,6 +20,9 @@ const product = {
 function Home() {
   const dispatch = useDispatch();
 
+  const { loading, error, products, productCount } = useSelector(
+    (state) => state.products
+  );
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
@@ -36,11 +39,8 @@ function Home() {
       </div>
       <h2 className="homeHeading">Featured Product</h2>
       <div className="container" id="container">
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
-        <Product product={product} />
+        {console.log(products, " this is product")}
+        {products && products.map((product) => <Product product={product} />)}
       </div>
     </Fragment>
   );
