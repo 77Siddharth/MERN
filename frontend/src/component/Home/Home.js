@@ -7,18 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import loader from "../layout/Loader/loader";
 import { useAlert } from "react-alert";
 
-const product = {
-  name: "Tshirt",
-  type: "Clothing",
-  price: "$200",
-  images: [
-    {
-      url: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQBnWW1NqVZeK1BLUrDP4Kr8RRTSFvd_S7goK6iWP_grA1KpC6ETrJlw701oDZDAqLlvpdIIyMgvqMjKq_UNG_ePrIXX9dluk_9mIUJTTs&usqp=CAE",
-    },
-  ],
-  _id: "somethingTshirt",
-};
-
 function Home() {
   const dispatch = useDispatch();
   //   const alert = useAlert();
