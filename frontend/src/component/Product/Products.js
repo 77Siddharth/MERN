@@ -4,14 +4,16 @@ import { getProduct } from "../../actions/productAction";
 import loader from "../layout/Loader/loader";
 import Product from "./Product";
 import "./Products.css";
-function Products() {
+function Products({ match }) {
   const dispatch = useDispatch();
+
   const { loading, products, productsCount, error } = useSelector(
     (state) => state.products
   );
+  const keyword = match.params.keyword;
   useEffect(() => {
-    dispatch(getProduct());
-  }, [dispatch]);
+    dispatch(getProduct(keyword));
+  }, [dispatch, keyword]);
   return (
     <Fragment>
       {loading ? (
@@ -21,7 +23,9 @@ function Products() {
           <h1 className="Products-heading">Products</h1>
           <div className="Products">
             {products &&
-              products.map((product) => <Product product={product} />)}
+              products.map((product) => (
+                <Product product={product} key={product.id} />
+              ))}
           </div>
         </Fragment>
       )}

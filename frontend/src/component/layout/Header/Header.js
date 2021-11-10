@@ -20,6 +20,7 @@ function Header() {
         link3Url="/contact"
         link4Text="About"
         link4Url="/about"
+        searchIconUrl="/search"
         link1Size="1.5vmax"
         link1Margin="0 auto"
         link3Color="white"
