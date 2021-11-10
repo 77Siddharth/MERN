@@ -45,6 +45,7 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
     products: allProducts,
     productsFound: allProducts.length,
     productsCount,
+    resultPerPage,
   });
 });
 
