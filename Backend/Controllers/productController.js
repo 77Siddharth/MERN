@@ -36,17 +36,22 @@ exports.getAllProducts = catchAsyncError(async (req, res) => {
   const apiFeatures = new ApiFeatures(Product.find(), req.query)
     .search()
     .filter()
-    .pagination(resultPerPage);
 
-  const allProducts = await apiFeatures.query;
+    let products = await apiFeatures.query.clone();
 
-  res.status(200).json({
-    success: true,
-    products: allProducts,
-    productsFound: allProducts.length,
-    productsCount,
-    resultPerPage,
-  });
+    let filterdProductsCount = products.length;
+
+    apiFeatures.pagination(resultPerPage);
+
+    const allProducts = await apiFeatures.query;
+
+    res.status(200).json({
+      success: true,
+      products: allProducts,
+      filterdProductsCount,
+      productsCount,
+      resultPerPage,
+    });
 });
 
 exports.deleteProduct = catchAsyncError(async (req, res, next) => {

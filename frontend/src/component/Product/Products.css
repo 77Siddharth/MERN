@@ -1,6 +1,6 @@
 .Products{
     justify-content: center;
-    padding: 0 5vmax;
+    padding: 0 10vmax;
     display: flex;
     flex-wrap: wrap;
 }
@@ -51,4 +51,23 @@
 
 .pageLinkActive{
     color: thistle;
+}
+
+.filterBox{
+    width: 10vmax;
+    position: absolute;
+    top: 10vmax;
+    left: 3vmax;
+}
+
+@media screen and (max-width:600px){
+    .filterBox{
+        width: 20vmax;
+        position: static;
+        margin: auto;
+    }
+
+    .page-link{
+        font: 300 1.7vmax "Roboto";
+    }
 }
