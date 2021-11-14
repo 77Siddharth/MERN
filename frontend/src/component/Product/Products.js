@@ -8,11 +8,23 @@ import { Slider } from "@material-ui/core";
 import Product from "./Product";
 import "./Products.css";
 
+const categories = [
+  "Laptop",
+  "Footwear",
+  "Bottom",
+  "Tops",
+  "Attire",
+  "Camera",
+  "Shoes",
+  "Smartphones",
+];
+
 function Products({ match }) {
   const dispatch = useDispatch();
 
   const [currentPage, setcurrentPage] = useState(1);
   const [price, setprice] = useState([0, 2500]);
+  const [category, setcategory] = useState("");
 
   const {
     loading,
@@ -33,8 +45,8 @@ function Products({ match }) {
   };
 
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price));
-  }, [dispatch, keyword, currentPage, price]);
+    dispatch(getProduct(keyword, currentPage, price, category));
+  }, [dispatch, keyword, currentPage, price, category]);
 
   return (
     <Fragment>
@@ -60,6 +72,18 @@ function Products({ match }) {
               min={0}
               max={100000}
             />
+            <Typography>Category</Typography>
+            <ul className="categoryBox">
+              {categories.map((category) => (
+                <li
+                  className="categoryLink"
+                  key={category}
+                  onClick={() => setcategory(category)}
+                >
+                  {category}
+                </li>
+              ))}
+            </ul>
           </div>
           {resultPerPage < filterdProductsCount && (
             <div className="paginationBox">
