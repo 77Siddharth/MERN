@@ -20,7 +20,6 @@ class ApiFeatures {
   filter() {
     const queryCpy = { ...this.queryStr };
     //   const queryCpy = {...this.queryStr.category}; --- why it can't be done like this ??
-    console.log(queryCpy, ":query Zou");
     //   Removing other params for category
     const removeFields = ["name", "page", "limit"];
 

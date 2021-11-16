@@ -25,6 +25,7 @@ function Products({ match }) {
   const [currentPage, setcurrentPage] = useState(1);
   const [price, setprice] = useState([0, 2500]);
   const [category, setcategory] = useState("");
+  const [rating, setratings] = useState(0);
 
   const {
     loading,
@@ -45,8 +46,8 @@ function Products({ match }) {
   };
 
   useEffect(() => {
-    dispatch(getProduct(keyword, currentPage, price, category));
-  }, [dispatch, keyword, currentPage, price, category]);
+    dispatch(getProduct(keyword, currentPage, price, category, rating));
+  }, [dispatch, keyword, currentPage, price, category, rating]);
 
   return (
     <Fragment>
@@ -84,6 +85,17 @@ function Products({ match }) {
                 </li>
               ))}
             </ul>
+            <fieldset>
+              <Typography component="sub">Ratings Above</Typography>
+              <Slider
+                value={rating}
+                onChange={(e, newrating) => setratings(newrating)}
+                aria-labelledby="continuous-slider"
+                min={0}
+                max={5}
+                valueLabelDisplay="auto"
+              />
+            </fieldset>
           </div>
           {resultPerPage < filterdProductsCount && (
             <div className="paginationBox">

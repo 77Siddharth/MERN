@@ -3,6 +3,7 @@
     padding: 0 10vmax;
     display: flex;
     flex-wrap: wrap;
+    min-height: 50vh;
 }
 
 .Products-heading{
@@ -60,6 +61,23 @@
     left: 3vmax;
 }
 
+.categoryBox{
+    padding: 0%;
+}
+
+.categoryLink{
+    list-style: none;
+    color: rgba(0,0,0,0.6);
+    font:400 0.9vmax "Roboto";
+    transition: 0.5s all;
+    cursor: pointer;
+    margin: 0.4vmax;
+
+}
+.categoryLink:hover{
+    color: tomato;
+}
+
 @media screen and (max-width:600px){
     .filterBox{
         width: 20vmax;
@@ -69,5 +87,8 @@
 
     .page-link{
         font: 300 1.7vmax "Roboto";
+    }
+    .categoryLink{
+        font: 400 1.7vmax "Roboto";
     }
 }
