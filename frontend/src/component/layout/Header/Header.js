@@ -28,6 +28,7 @@ function Header() {
         searchIconMargin="1vmax"
         cartIconMargin="2vmax"
         profileIconMargin="1vmax"
+        profileIconUrl="/login"
       />
     </div>
   );
