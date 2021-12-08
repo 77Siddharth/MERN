@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { FaEnvelopeOpen, FaLockOpen, FaUser } from "react-icons/fa";
 import { MdLockOpen, MdMailOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { login } from "../../actions/userAction";
 import loader from "../layout/Loader/loader";
 import "./LoginSignup.css";
 
-function LoginSignup() {
+function LoginSignup({ history }) {
   const dispatch = useDispatch();
 
   const loginTab = useRef(null);
@@ -20,6 +20,10 @@ function LoginSignup() {
     password: "",
   });
 
+  const { error, loading, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+
   const { name, email, password } = User;
 
   const [Avatar, setAvatar] = useState();
@@ -31,7 +35,6 @@ function LoginSignup() {
   const loginSubmit = (e) => {
     e.preventDefault();
     dispatch(login(LoginEmail, LoginPassword));
-    console.log("Login Submit pressed");
   };
 
   const registerSubmit = (e) => {
@@ -80,6 +83,10 @@ function LoginSignup() {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
+
+  useEffect(() => {
+    if (isAuthenticated) history.push("/account");
+  }, [dispatch, isAuthenticated, history]);
 
   return (
     <Fragment>
