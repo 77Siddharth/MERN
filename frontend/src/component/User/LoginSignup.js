@@ -1,11 +1,15 @@
 import React, { Fragment, useRef, useState } from "react";
 import { FaEnvelopeOpen, FaLockOpen, FaUser } from "react-icons/fa";
 import { MdLockOpen, MdMailOutline } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "../../actions/userAction";
 import loader from "../layout/Loader/loader";
 import "./LoginSignup.css";
 
 function LoginSignup() {
+  const dispatch = useDispatch();
+
   const loginTab = useRef(null);
   const registerTab = useRef(null);
   const switcherTab = useRef(null);
@@ -21,7 +25,12 @@ function LoginSignup() {
   const [Avatar, setAvatar] = useState();
   const [AvatarPreview, setAvatarPreview] = useState("/logo192.png");
 
-  const loginSubmit = () => {
+  const [LoginEmail, setLoginEmail] = useState("");
+  const [LoginPassword, setLoginPassword] = useState("");
+
+  const loginSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(LoginEmail, LoginPassword));
     console.log("Login Submit pressed");
   };
 
@@ -71,9 +80,6 @@ function LoginSignup() {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
-
-  const [LoginEmail, setLoginEmail] = useState("");
-  const [LoginPassword, setLoginPassword] = useState("");
 
   return (
     <Fragment>
