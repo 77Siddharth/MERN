@@ -1,6 +1,6 @@
 import React from "react";
 import "./loader.css";
-function loader() {
+function Loader() {
   return (
     <div className="loading">
       <div></div>
@@ -8,4 +8,4 @@ function loader() {
   );
 }
 
-export default loader;
+export default Loader;

@@ -4,7 +4,7 @@ import { MdLockOpen, MdMailOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { login, register } from "../../actions/userAction";
-import loader from "../layout/Loader/loader";
+import Loader from "../layout/Loader/Loader";
 import "./LoginSignup.css";
 
 function LoginSignup({ history }) {
@@ -85,9 +85,11 @@ function LoginSignup({ history }) {
 
   useEffect(() => {
     if (isAuthenticated) history.push("/account");
-  }, [dispatch, isAuthenticated, history]);
+  }, [dispatch, isAuthenticated, history, loading]);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <Fragment>
       <div className="LoginSignupContainer">
         <div className="LoginSignupBox">
@@ -182,7 +184,6 @@ function LoginSignup({ history }) {
           </form>
         </div>
       </div>
-      ;
     </Fragment>
   );
 }
