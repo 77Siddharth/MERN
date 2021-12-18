@@ -3,7 +3,7 @@ import { FaEnvelopeOpen, FaLockOpen, FaUser } from "react-icons/fa";
 import { MdLockOpen, MdMailOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { login } from "../../actions/userAction";
+import { login, register } from "../../actions/userAction";
 import loader from "../layout/Loader/loader";
 import "./LoginSignup.css";
 
@@ -40,14 +40,14 @@ function LoginSignup({ history }) {
   const registerSubmit = (e) => {
     e.preventDefault();
 
-    const myForm = new FormData();
+    let myForm = new FormData();
 
     myForm.set("name", name);
     myForm.set("email", email);
     myForm.set("Avatar", Avatar);
     myForm.set("password", password);
 
-    console.log("Signup Submit pressed");
+    dispatch(register(myForm));
   };
 
   const registerDataChange = (e) => {
@@ -60,7 +60,6 @@ function LoginSignup({ history }) {
           setAvatar(reader.result);
         }
       };
-
       reader.readAsDataURL(e.target.files[0]);
     } else {
       setUser({ ...User, [e.target.name]: e.target.value });
