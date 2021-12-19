@@ -27,7 +27,7 @@ function UserOptions({ user }) {
   const logoutUser = () => {
     dispatch(logout());
     toast("Logout Successfull");
-    // history.push("/logout");
+    history.push("/");
   };
 
   const options = [
@@ -35,8 +35,8 @@ function UserOptions({ user }) {
     { name: "Orders", icon: <ListAltIcon />, func: orders },
     { name: "Logout", icon: <ExitToAppIcon />, func: logoutUser },
   ];
-
-  if (user.role == "admin") {
+  console.log("User", user.role === "admin");
+  if (user.role === "admin") {
     options.unshift({
       name: "Dashboard",
       icon: <DashboardIcon />,
@@ -53,11 +53,6 @@ function UserOptions({ user }) {
         icon={<PersonIcon />}
         direction="down"
       >
-        <SpeedDialAction
-          icon={<DashboardIcon />}
-          tooltipTitle="Dashboard"
-          onClick={() => dashboard()}
-        />
         {options.map((option) => (
           <SpeedDialAction
             icon={option.icon}
