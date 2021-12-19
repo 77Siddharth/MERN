@@ -1,4 +1,5 @@
 import React from "react";
+import "react-toastify/dist/ReactToastify.css";
 import { Fragment } from "react";
 import { SpeedDial, SpeedDialAction } from "@mui/material";
 import { useState } from "react";
@@ -7,14 +8,13 @@ import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useHistory } from "react-router-dom";
-
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import { useDispatch } from "react-redux";
+import { logout } from "../../../actions/userAction";
 function UserOptions({ user }) {
   const [open, setOpen] = useState(true);
   const history = useHistory();
-
+  const dispatch = useDispatch();
   const dashboard = () => {
     history.push("/dashboard");
   };
@@ -24,8 +24,8 @@ function UserOptions({ user }) {
   const orders = () => {
     history.push("/orders");
   };
-  const logout = () => {
-    console.log("construct Logout fucntion");
+  const logoutUser = () => {
+    dispatch(logout());
     toast("Logout Successfull");
     // history.push("/logout");
   };
@@ -33,7 +33,7 @@ function UserOptions({ user }) {
   const options = [
     { name: "Account", icon: <PersonIcon />, func: account },
     { name: "Orders", icon: <ListAltIcon />, func: orders },
-    { name: "Logout", icon: <ExitToAppIcon />, func: logout },
+    { name: "Logout", icon: <ExitToAppIcon />, func: logoutUser },
   ];
 
   if (user.role == "admin") {
@@ -66,11 +66,7 @@ function UserOptions({ user }) {
           />
         ))}
       </SpeedDial>
-      <ToastContainer
-        autoClose={2000}
-        hideProgressBar={true}
-        pauseOnHover={false}
-      />
+      <ToastContainer autoClose={2000} pauseOnHover={false} />
     </Fragment>
   );
 }

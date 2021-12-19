@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../actions/productAction";
 import Pagination from "react-js-pagination";
-import loader from "../layout/Loader/loader";
+import Loader from "../layout/Loader/Loader";
 import { Typography } from "@material-ui/core";
 import { Slider } from "@material-ui/core";
 import Product from "./Product";
@@ -52,7 +52,7 @@ function Products({ match }) {
   return (
     <Fragment>
       {loading ? (
-        <loader />
+        <Loader />
       ) : (
         <Fragment>
           <h1 className="Products-heading">Products</h1>
