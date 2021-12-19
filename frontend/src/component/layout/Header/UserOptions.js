@@ -38,7 +38,6 @@ function UserOptions({ user }) {
     { name: "Orders", icon: <ListAltIcon />, func: orders },
     { name: "Logout", icon: <ExitToAppIcon />, func: logoutUser },
   ];
-  console.log("User", user.role === "admin");
   if (user.role === "admin") {
     options.unshift({
       name: "Dashboard",
