@@ -8,6 +8,9 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useHistory } from "react-router-dom";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function UserOptions({ user }) {
   const [open, setOpen] = useState(true);
   const history = useHistory();
@@ -23,6 +26,7 @@ function UserOptions({ user }) {
   };
   const logout = () => {
     console.log("construct Logout fucntion");
+    toast("Logout Successfull");
     // history.push("/logout");
   };
 
@@ -62,6 +66,11 @@ function UserOptions({ user }) {
           />
         ))}
       </SpeedDial>
+      <ToastContainer
+        autoClose={2000}
+        hideProgressBar={true}
+        pauseOnHover={false}
+      />
     </Fragment>
   );
 }
