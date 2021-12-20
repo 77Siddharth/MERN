@@ -13,6 +13,7 @@ import Header from "./component/layout/Header/Header.js";
 import Footer from "./component/layout/Footer/Footer.js";
 import Products from "./component/Product/Products.js";
 import LoginSignup from "./component/User/LoginSignup.js";
+import UpdateProfile from "./component/User/UpdateProfile.js";
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import ProductDetails from "./component/ProductDetails/ProductDetails.js";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
@@ -34,12 +35,13 @@ function App() {
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
       <Route exact path="/" component={Home} />
-      <Route exact path="/product/:id" component={ProductDetails} />
+      <Route exact path="/search" component={Search} />
+      <Route exact path="/login" component={LoginSignup} />
       <Route exact path="/products" component={Products} />
       <Route path="/products/:keyword" component={Products} />
-      <Route exact path="/search" component={Search} />
       <ProtectedRoute exact path="/account" component={Profile} />
-      <Route exact path="/login" component={LoginSignup} />
+      <Route exact path="/product/:id" component={ProductDetails} />
+      <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
       <Footer />
     </Router>
   );

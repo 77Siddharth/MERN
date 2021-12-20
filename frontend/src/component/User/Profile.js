@@ -8,7 +8,7 @@ function Profile({ history }) {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (isAuthenticated == false) history.push("/login");
+    if (isAuthenticated === false) history.push("/login");
   }, [history, isAuthenticated]);
   return (
     <Fragment>
