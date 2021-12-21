@@ -49,7 +49,6 @@ function UpdateProfile({ history }) {
       setavatarPreview(user.avatar.url);
     }
     if (isUpdated) {
-      console.log("Profile updated successfully");
       dispatch(loadUser());
       history.push("/account");
       dispatch({
