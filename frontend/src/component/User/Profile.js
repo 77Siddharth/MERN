@@ -9,7 +9,7 @@ function Profile({ history }) {
 
   useEffect(() => {
     if (isAuthenticated === false) history.push("/login");
-  }, [history, isAuthenticated]);
+  }, [history, isAuthenticated, user]);
   return (
     <Fragment>
       {loading ? (
@@ -20,7 +20,10 @@ function Profile({ history }) {
           <div className="profileContainer">
             <div>
               <h1>My Profile</h1>
-              <img src={user.avatar ? "temp" : "tempmtpe"} alt={user.name} />
+              <img
+                src={user.avatar ? user.avatar.url : "tempmtpe"}
+                alt={user.name}
+              />
               <Link to="/me/update">Edit Profile</Link>
             </div>
             <div>

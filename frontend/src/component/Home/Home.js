@@ -4,8 +4,7 @@ import MetaData from "../layout/MetaData";
 import Product from "../Product/Product";
 import "./Home.css";
 import { useDispatch, useSelector } from "react-redux";
-import loader from "../layout/Loader/loader";
-import { useAlert } from "react-alert";
+import Loader from "../layout/Loader/Loader";
 
 function Home() {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ function Home() {
   }, [dispatch, error]);
 
   return loading ? (
-    <loader />
+    <Loader />
   ) : (
     <Fragment>
       <MetaData title="Round the clock Store" />

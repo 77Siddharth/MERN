@@ -26,8 +26,8 @@ function LoginSignup({ history }) {
 
   const { name, email, password } = User;
 
-  const [Avatar, setAvatar] = useState();
-  const [AvatarPreview, setAvatarPreview] = useState("/logo192.png");
+  const [avatar, setavatar] = useState();
+  const [avatarPreview, setavatarPreview] = useState("/logo192.png");
 
   const [LoginEmail, setLoginEmail] = useState("");
   const [LoginPassword, setLoginPassword] = useState("");
@@ -44,20 +44,20 @@ function LoginSignup({ history }) {
 
     myForm.set("name", name);
     myForm.set("email", email);
-    myForm.set("Avatar", Avatar);
+    myForm.set("avatar", avatar);
     myForm.set("password", password);
 
     dispatch(register(myForm));
   };
 
   const registerDataChange = (e) => {
-    if (e.target.name === "Avatar") {
+    if (e.target.name === "avatar") {
       const reader = new FileReader();
 
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setAvatarPreview(reader.result);
-          setAvatar(reader.result);
+          setavatarPreview(reader.result);
+          setavatar(reader.result);
         }
       };
       reader.readAsDataURL(e.target.files[0]);
@@ -167,10 +167,10 @@ function LoginSignup({ history }) {
             </div>
 
             <div id="registerImage">
-              <img src={AvatarPreview} alt="Avatar Preview" />
+              <img src={avatarPreview} alt="avatar Preview" />
               <input
                 type="file"
-                name="Avatar"
+                name="avatar"
                 accept="image/*"
                 onChange={registerDataChange}
               />

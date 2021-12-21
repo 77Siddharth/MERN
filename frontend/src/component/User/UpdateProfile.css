@@ -11,7 +11,16 @@
     left: 0;
 }
 
-.updateProfileContainerBox{
+.updateProfileHeading{
+    text-align: center;
+    font: 400 1.3vmax "Roboto";
+    border-bottom: 1px solid rgb(0, 0, 0,0.2);
+    padding: 1.3vmax;
+    width: 50%;
+    margin: auto;
+}
+
+.updateProfileBox{
     background-color: white;
     width: 25vw;
     height: 75vh;
@@ -151,6 +160,7 @@ background-color: rgb(231, 231, 231);
    #registerImage>img{
        width: 8vmax;
        border-radius: 100%;
+       margin: 1vmax;
    }
 
     #registerImage > input::file-selector-button{

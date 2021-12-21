@@ -2,8 +2,8 @@ import React, { Fragment, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getProduct, getProductDetail } from "../../actions/productAction";
-import loader from "../layout/Loader/loader";
+import { getProductDetail } from "../../actions/productAction";
+import Loader from "../layout/Loader/Loader";
 import "./ProductDetails.css";
 import ReviewCard from "./ReviewCard";
 
@@ -27,7 +27,7 @@ function ProductDetails({ match }) {
   return (
     <div>
       {loading ? (
-        <loader />
+        <Loader />
       ) : (
         <Fragment>
           <div className="ProductDetails">

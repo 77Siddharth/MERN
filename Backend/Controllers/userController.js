@@ -7,12 +7,10 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary");
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-  const myCloud = await cloudinary.v2.uploader.upload(req.body.Avatar, {
-    folder: "Avatars",
+  const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: "avatars",
     width: 150,
     crop: "scale",
-    public_id: `${Date.now()}`,
-    resource_type: "auto",
   });
 
   const { name, email, password } = req.body;
@@ -144,37 +142,55 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
 
-
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
-// old password matching with entered password
+  // old password matching with entered password
   if (!isPasswordMatched)
     return next(new ErrorHandler("Old PAssword is incorrect", 400));
 
-  if(req.body.newPassword !== req.body.confirmPassword){
+  if (req.body.newPassword !== req.body.confirmPassword) {
     return next(new ErrorHandler("PAssword does not match", 400));
   }
 
   user.password = req.body.newPassword;
   await user.save();
 
-  sendToken(user,res,200);
+  sendToken(user, res, 200);
 });
 
 // update user profile
 
 exports.updateProfile = catchAsyncError(async (req, res, next) => {
-
-
   const newUserData = {
-    name : req.body.name,
-    email : req.body.email
+    name: req.body.name,
+    email: req.body.email,
+  };
+
+  let user = await User.findById(req.user.id);
+
+  if (req.body.avatar != "") {
+    const imageId = user.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(imageId);
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+      folder: "avatars",
+      width: 150,
+      crop: "scale",
+    });
+
+    newUserData.avatar = {
+      public_id: myCloud.public_id,
+      url: myCloud.secure_url,
+    };
   }
 
-  const user = await User.findByIdAndUpdate(req.user.id,newUserData,{new:true,runValidators:true});
+  user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+  });
 
   res.status(200).json({
-    success:true
-  })
+    success: true,
+  });
 });
 
 // Get All Users ( admin )
