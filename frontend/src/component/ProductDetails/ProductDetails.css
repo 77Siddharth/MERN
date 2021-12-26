@@ -8,22 +8,25 @@
 }
 
 .ProductDetails > div{
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     padding: 2vmax;
     box-sizing: border-box;
+    
 }
-
 .ProductDetails > div:last-child{
     align-items: flex-start;
 }
 .CarouselImage {
-    width: 20vmax;
+    padding: 1vmax;
+    max-height:100%; max-width:100%;
 }
-
+.Carousel{
+    width: 52%;
+}
 .detailsBlock-1 > h2{
     color: rgb(54, 54, 54);
     font: 600 1.6vmax "roboto";
