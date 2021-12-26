@@ -1,17 +1,25 @@
 import React, { Fragment } from "react";
 import CartItem from "./CartItem.js";
 import "./Cart.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addItemsToCart } from "../../actions/cartAction.js";
 
 function Cart() {
-  const item = {
-    name: "Lenovo Ideapad",
-    price: "20000",
-    image: "Sample.jpg",
-    product: "Laptop",
-    quantity: 1,
-    image:
-      "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQBnWW1NqVZeK1BLUrDP4Kr8RRTSFvd_S7goK6iWP_grA1KpC6ETrJlw701oDZDAqLlvpdIIyMgvqMjKq_UNG_ePrIXX9dluk_9mIUJTTs&usqp=CAE",
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const increaseQuantity = (id, quantity, stock) => {
+    if (stock <= quantity) return;
+    const newQty = quantity + 1;
+    dispatch(addItemsToCart(id, newQty));
   };
+
+  const decreaseQuantity = (id, quantity) => {
+    const newQty = quantity - 1;
+    if (1 >= quantity) return;
+    dispatch(addItemsToCart(id, newQty));
+  };
+
   return (
     <Fragment>
       <div className="cartPage">
@@ -20,15 +28,28 @@ function Cart() {
           <p>Quantity</p>
           <p>Subtotal</p>
         </div>
-        <div className="cartContainer">
-          <CartItem item={item} />
-          <div className="cartInput">
-            <button>-</button>
-            <input type="number" readOnly value={item.quantity} />
-            <button>+</button>
-          </div>
-          <p className="cartSubtotal">{`R${item.price * item.quantity}`}</p>
-        </div>
+        {cartItems &&
+          cartItems.map((item) => (
+            <div className="cartContainer">
+              <CartItem item={item} />
+              <div className="cartInput">
+                <button
+                  onClick={() => decreaseQuantity(item.product, item.quantity)}
+                >
+                  -
+                </button>
+                <input type="number" readOnly value={item.quantity} />
+                <button
+                  onClick={() =>
+                    increaseQuantity(item.product, item.quantity, item.stock)
+                  }
+                >
+                  +
+                </button>
+              </div>
+              <p className="cartSubtotal">{`R${item.price * item.quantity}`}</p>
+            </div>
+          ))}
         <div className="cartTotal">
           <div></div>
           <div className="cartTotalBox">
