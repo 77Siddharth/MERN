@@ -81,7 +81,10 @@ function Cart() {
               <div></div>
               <div className="cartTotalBox">
                 <p>Cart Total</p>
-                <p>{`R600`}</p>
+                <p>{`${cartItems.reduce(
+                  (acc, item) => acc + item.price * item.quantity,
+                  0
+                )}`}</p>
               </div>
               <div></div>
               <div className="checkOutBtn">

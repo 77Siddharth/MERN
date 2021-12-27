@@ -68,7 +68,17 @@ function UserOptions({ user }) {
         className="speedDial"
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
-        icon={<PersonIcon />}
+        icon={
+          user.avatar.url ? (
+            <img
+              className="speedDialIcon"
+              src={user.avatar.url}
+              alt="Profile"
+            />
+          ) : (
+            <PersonIcon />
+          )
+        }
         direction="down"
         style={{ zIndex: 11 }}
       >
@@ -79,6 +89,7 @@ function UserOptions({ user }) {
             icon={option.icon}
             tooltipTitle={option.name}
             onClick={option.func}
+            tooltipOpen={window.innerWidth < 600 ? true : false}
           />
         ))}
       </SpeedDial>
