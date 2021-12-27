@@ -10,12 +10,16 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import { useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../actions/userAction";
 import "./Header.css";
+import ShoppingCart from "@material-ui/icons/ShoppingCart";
 
 function UserOptions({ user }) {
   const [open, setOpen] = useState(false);
+
+  const { cartItems } = useSelector((state) => state.cart);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const dashboard = () => {
@@ -24,6 +28,11 @@ function UserOptions({ user }) {
   const account = () => {
     history.push("/account");
   };
+
+  const cart = () => {
+    history.push("/cart");
+  };
+
   const orders = () => {
     history.push("/orders");
   };
@@ -36,6 +45,11 @@ function UserOptions({ user }) {
   const options = [
     { name: "Account", icon: <PersonIcon />, func: account },
     { name: "Orders", icon: <ListAltIcon />, func: orders },
+    {
+      name: `Cart ( ${cartItems.length} )`,
+      icon: <ShoppingCart />,
+      func: cart,
+    },
     { name: "Logout", icon: <ExitToAppIcon />, func: logoutUser },
   ];
   if (user.role === "admin") {
