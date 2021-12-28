@@ -7,7 +7,7 @@ import { login, register } from "../../actions/userAction";
 import Loader from "../layout/Loader/Loader";
 import "./LoginSignup.css";
 
-function LoginSignup({ history }) {
+function LoginSignup({ history, location }) {
   const dispatch = useDispatch();
 
   const loginTab = useRef(null);
@@ -83,8 +83,10 @@ function LoginSignup({ history }) {
     }
   };
 
+  const redirect = location.search ? location.search.split("=")[1] : "/account";
+
   useEffect(() => {
-    if (isAuthenticated) history.push("/account");
+    if (isAuthenticated) history.push(redirect);
   }, [dispatch, isAuthenticated, history, loading]);
 
   return loading ? (

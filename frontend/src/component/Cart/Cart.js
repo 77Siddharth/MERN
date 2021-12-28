@@ -7,7 +7,7 @@ import { addItemsToCart, removeCartItem } from "../../actions/cartAction.js";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { Link } from "react-router-dom";
 
-function Cart() {
+function Cart({ history }) {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -25,6 +25,10 @@ function Cart() {
 
   const deleteCartItem = (id) => {
     dispatch(removeCartItem(id));
+  };
+
+  const checkoutHandler = () => {
+    history.push("/login?redirect=shipping");
   };
 
   return (
@@ -88,7 +92,7 @@ function Cart() {
               </div>
               <div></div>
               <div className="checkOutBtn">
-                <button>Check Out</button>
+                <button onClick={checkoutHandler}>Check Out</button>
               </div>
             </div>
           </div>
