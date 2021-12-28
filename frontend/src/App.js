@@ -21,6 +21,7 @@ import ForgotPassword from "./component/User/ForgotPassword.js";
 import ResetPassword from "./component/User/ResetPassword.js";
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import ProductDetails from "./component/ProductDetails/ProductDetails.js";
+import OrderConfirm from "./component/Cart/OrderConfirm.js";
 import Shipping from "./component/Cart/Shipping.js";
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
       <Route exact path="/password/reset/:token" component={ResetPassword} />
       <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
+      <ProtectedRoute exact path="/order/confirm" component={OrderConfirm} />
 
       <ProtectedRoute
         exact
