@@ -1,11 +1,12 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import store from "./store";
 import WebFont from "webfontloader";
 import { useSelector } from "react-redux";
 import { loadUser } from "./actions/userAction.js";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import Cart from "./component/Cart/Cart.js";
 import Home from "./component/Home/Home.js";
 import Profile from "./component/User/Profile.js";
@@ -21,19 +22,32 @@ import ForgotPassword from "./component/User/ForgotPassword.js";
 import ResetPassword from "./component/User/ResetPassword.js";
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import ProductDetails from "./component/ProductDetails/ProductDetails.js";
-import OrderConfirm from "./component/Cart/OrderConfirm.js";
 import Shipping from "./component/Cart/Shipping.js";
+import OrderConfirm from "./component/Cart/OrderConfirm.js";
+import Payment from "./component/Cart/Payment.js";
+import axios from "axios";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
-  React.useEffect(() => {
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeApiKey");
+    setStripeApiKey(data.stripeApiKey);
+    console.log("this is data , ", data);
+    console.log("this is Stripe API , ", stripeApiKey);
+  }
+
+  useEffect(() => {
     WebFont.load({
       google: {
         families: ["Roboto"],
       },
     });
     store.dispatch(loadUser());
+
+    getStripeApiKey();
   }, []);
 
   return (
@@ -53,6 +67,12 @@ function App() {
       <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
       <ProtectedRoute exact path="/order/confirm" component={OrderConfirm} />
+
+      {stripeApiKey && (
+        <Elements stripe={loadStripe(stripeApiKey)}>
+          <ProtectedRoute exact path="/process/payment" component={Payment} />
+        </Elements>
+      )}
 
       <ProtectedRoute
         exact

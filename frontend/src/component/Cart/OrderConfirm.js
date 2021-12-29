@@ -6,7 +6,7 @@ import MetaData from "../layout/MetaData";
 import CheckoutSteps from "./CheckoutSteps";
 import "./OrderConfirm.css";
 
-function OrderConfirm() {
+function OrderConfirm({ history }) {
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
 
@@ -16,12 +16,21 @@ function OrderConfirm() {
   );
 
   const shippingCharges = subtotal > 1000 ? 0 : 200;
-
   const tax = subtotal * 0.18;
-
   const totalPrice = subtotal + tax + shippingCharges;
-
   const address = `${shippingInfo.address} , ${shippingInfo.city} , ${shippingInfo.state} , ${shippingInfo.country}`;
+
+  const proceedToPayment = () => {
+    const data = {
+      totalPrice,
+      subtotal,
+      tax,
+      shippingCharges,
+    };
+
+    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+    history.push("/process/payment");
+  };
 
   return (
     <Fragment>
@@ -86,7 +95,9 @@ function OrderConfirm() {
                 <span>{totalPrice}</span>
               </div>
 
-              <button>Proceed to Payment</button>
+              <button onClick={() => proceedToPayment()}>
+                Proceed to Payment
+              </button>
             </div>
           </div>
         </div>

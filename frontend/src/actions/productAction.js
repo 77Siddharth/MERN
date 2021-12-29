@@ -13,7 +13,7 @@ export const getProduct =
   (
     keyword = "",
     currentPage = 1,
-    price = [0, 2500],
+    price = [0, 25000],
     category = "",
     rating = 0
   ) =>
