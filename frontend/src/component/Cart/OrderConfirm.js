@@ -46,7 +46,7 @@ function OrderConfirm({ history }) {
             </div>
             <div>
               <p>Phone:</p>
-              <span>{shippingInfo.phoneNo}</span>
+              <span>{shippingInfo.contactInfo}</span>
             </div>
             <div>
               <p>Address:</p>

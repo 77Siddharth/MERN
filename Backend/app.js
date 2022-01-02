@@ -3,6 +3,7 @@ const product = require("./Routes/productRoute");
 const user = require("./Routes/userRoute");
 const order = require("./Routes/orderRoute");
 const payments = require("./Routes/paymentRoute");
+const cors = require("cors");
 
 const dotenv = require("dotenv");
 const express = require("express");
@@ -15,6 +16,7 @@ const app = express();
 // config
 dotenv.config({ path: "Backend/Config/config.env" });
 
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

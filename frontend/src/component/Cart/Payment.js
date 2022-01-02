@@ -16,6 +16,7 @@ import {
 } from "@stripe/react-stripe-js";
 import "./Payment.css";
 import { useAlert } from "react-alert";
+import { clearErrors, createOrder } from "../../actions/orderAction";
 
 function Payment({ history }) {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -28,9 +29,25 @@ function Payment({ history }) {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
+  const newOrder = useSelector((state) => state.newOrder);
+
+  useEffect(() => {
+    if (newOrder.error) {
+      dispatch(clearErrors());
+    }
+  }, [newOrder.error, dispatch]);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
+  };
+
+  const order = {
+    shippingInfo,
+    shippingPrice: orderInfo.shippingCharges,
+    orderItems: cartItems,
+    totalPrice: orderInfo.totalPrice,
+    itemsPrice: orderInfo.subtotal,
+    taxPrice: orderInfo.tax,
   };
 
   const submitHandler = async (e) => {
@@ -73,9 +90,15 @@ function Payment({ history }) {
 
       if (result.error) {
         payBtn.current.disabled = false;
-        console.log("Result ka error", result.error);
       } else {
         if (result.paymentIntent.status === "succeeded") {
+          console.log("Payment Success");
+          order.paymentInfo = {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+          };
+          console.log("orderDetails", order);
+          dispatch(createOrder(order));
           history.push("/success");
         } else {
           console.log("some issue occured while payment");

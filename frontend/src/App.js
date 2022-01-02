@@ -24,6 +24,7 @@ import UserOptions from "./component/layout/Header/UserOptions.js";
 import ProductDetails from "./component/ProductDetails/ProductDetails.js";
 import Shipping from "./component/Cart/Shipping.js";
 import OrderConfirm from "./component/Cart/OrderConfirm.js";
+import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import Payment from "./component/Cart/Payment.js";
 import axios from "axios";
 
@@ -67,7 +68,7 @@ function App() {
       <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
       <ProtectedRoute exact path="/order/confirm" component={OrderConfirm} />
-
+      <ProtectedRoute exact path="/success" component={OrderSuccess} />
       {stripeApiKey && (
         <Elements stripe={loadStripe(stripeApiKey)}>
           <ProtectedRoute exact path="/process/payment" component={Payment} />

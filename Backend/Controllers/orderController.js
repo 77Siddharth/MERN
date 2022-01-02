@@ -24,6 +24,7 @@ exports.newOrder = catchAsyncError(async (req, res, next) => {
     taxPrice,
     paidAt: Date.now(),
     user: req.user._id,
+    // user: "osadoasodjasj",
   });
 
   res.status(201).json({
