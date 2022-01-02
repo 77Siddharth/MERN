@@ -3,7 +3,6 @@ import ReactStars from "react-rating-stars-component";
 import profilePng from "../../images/profilePng.png";
 
 function ReviewCard({ review }) {
-  console.log("tjis is review: ", review);
   const options = {
     edit: false,
     color: "rgba(20,20,20,0.1)",

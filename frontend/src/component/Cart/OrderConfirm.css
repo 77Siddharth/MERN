@@ -111,7 +111,7 @@
     padding: 2vmax 0;
 }
 
-button{
+.paymentBtn{
     border: none;
     background-color: tomato;
     color: white;
@@ -125,7 +125,7 @@ button{
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
 
-button:hover{
+.paymentBtn:hover{
     background-color: orangered;
 }
 
@@ -203,7 +203,7 @@ button:hover{
         padding: 5vw 0;
     }
 
-    button{
+    .paymentBtn{
         padding: 4vw;
         margin: 4vw auto;
         font: 400 4vw "Roboto";

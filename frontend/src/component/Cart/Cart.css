@@ -72,7 +72,7 @@
     padding: 0.5vmax;
     color: white;
     transition: all 0.5s;
-
+    max-width: 20px;
 }
 
 .cartInput >button:hover{

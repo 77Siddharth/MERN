@@ -6,10 +6,6 @@ const catchAsyncError = require("./catchAsyncError");
 exports.isAuthenticatedUser = catchAsyncError(async (req, res, next) => {
   const { token } = req.cookies;
 
-  console.log("URL", req.url);
-  console.log("Token", token);
-
-
   if (!token)
     return next(new ErrorHandler("Please login to access this page", 401));
 

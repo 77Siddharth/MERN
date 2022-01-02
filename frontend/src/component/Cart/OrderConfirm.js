@@ -95,7 +95,7 @@ function OrderConfirm({ history }) {
                 <span>{totalPrice}</span>
               </div>
 
-              <button onClick={() => proceedToPayment()}>
+              <button className="paymentBtn" onClick={() => proceedToPayment()}>
                 Proceed to Payment
               </button>
             </div>
