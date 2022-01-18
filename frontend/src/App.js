@@ -4,7 +4,7 @@ import store from "./store";
 import WebFont from "webfontloader";
 import { useSelector } from "react-redux";
 import { loadUser } from "./actions/userAction.js";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import Cart from "./component/Cart/Cart.js";
@@ -67,11 +67,13 @@ function App() {
       <Route exact path="/password/reset/:token" component={ResetPassword} />
       <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
 
-      <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
+      <Switch>
+        <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
+        <ProtectedRoute exact path="/order/confirm" component={OrderConfirm} />
+      </Switch>
 
       <ProtectedRoute exact path="/orders" component={MyOrders} />
       <ProtectedRoute exact path="/shipping" component={Shipping} />
-      <ProtectedRoute exact path="/order/confirm" component={OrderConfirm} />
       <ProtectedRoute exact path="/success" component={OrderSuccess} />
 
       {stripeApiKey && (

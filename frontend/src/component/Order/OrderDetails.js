@@ -13,7 +13,6 @@ function OrderDetails({ history, match }) {
 
   useEffect(() => {
     if (error) {
-      console.log("Error occured", error);
       dispatch(clearErrors());
     }
     dispatch(getOrderDetails(match.params.id));

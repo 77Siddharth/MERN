@@ -2,11 +2,19 @@ import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../../actions/productAction";
+import {
+  newReview,
+  getProductDetail,
+  clearErrors,
+} from "../../actions/productAction";
 import Loader from "../layout/Loader/Loader";
 import "./ProductDetails.css";
 import ReviewCard from "./ReviewCard";
 import { addItemsToCart } from "../../actions/cartAction";
+import { Dialog, DialogActions, DialogTitle, Button } from "@material-ui/core";
+import { DialogContent } from "@mui/material";
+import { Rating } from "@material-ui/lab";
+import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 
 function ProductDetails({ match }) {
   const dispatch = useDispatch();
@@ -15,7 +23,18 @@ function ProductDetails({ match }) {
     (state) => state.productDetail
   );
 
+  const { success, error: reviewError } = useSelector(
+    (state) => state.newReview
+  );
+
   const [quantity, setQuantity] = useState(1);
+  const [comment, setComment] = useState();
+  const [rating, setRating] = useState();
+  const [open, setOpen] = useState();
+
+  const submitReviewToggle = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
 
   const decreaseQuantity = () => {
     if (quantity <= 1) return;
@@ -31,7 +50,38 @@ function ProductDetails({ match }) {
     dispatch(addItemsToCart(id, quantity));
   };
 
+  const reviewSubmitHandler = () => {
+    // const myForm = new FormData();
+
+    let formData = {
+      rating: rating,
+      comment: comment,
+      productId: match.params.id,
+    };
+    // myForm.set("rating", rating);
+    // myForm.set("comment", comment);
+    // myForm.set("productId", match.params.id);
+
+    dispatch(newReview(formData));
+
+    setOpen(false);
+  };
+
   useEffect(() => {
+    if (error) {
+      console.log("error", error);
+      dispatch(clearErrors());
+    }
+
+    if (reviewError) {
+      console.log("reviewError", reviewError);
+      dispatch(clearErrors());
+    }
+
+    if (success) {
+      console.log(success, "Review Success");
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
     dispatch(getProductDetail(match.params.id));
   }, [dispatch, match.params.id]);
 
@@ -82,6 +132,7 @@ function ProductDetails({ match }) {
                     <button onClick={increaseQuantity}>+</button>
                   </div>
                   <button
+                    disabled={productDetail.stock < 1 ? true : false}
                     onClick={() => addToCart(productDetail._id, quantity)}
                   >
                     Add to Cart
@@ -101,10 +152,40 @@ function ProductDetails({ match }) {
               <div className="detailsBlock-4">
                 Description: <p>{productDetail.description}</p>
               </div>
-              <button className="submitReview">Submit Review</button>
+              <button className="submitReview" onClick={submitReviewToggle}>
+                Submit Review
+              </button>
             </div>
           </div>
           <h3 className="reviewsHeading">REVIEWS</h3>
+
+          <Dialog
+            open={open}
+            aria-labelledby="simple-dialog-title"
+            onClose={submitReviewToggle}
+          >
+            <DialogTitle>Submit Review</DialogTitle>
+            <DialogContent className="submitDialog">
+              <Rating
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
+                size="large"
+              />
+              <textarea
+                className="submitDialogTextArea"
+                cols="30"
+                rows="5"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={submitReviewToggle} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={reviewSubmitHandler}>Submit</Button>
+            </DialogActions>
+          </Dialog>
           {productDetail.reviews && productDetail.reviews[0] ? (
             <div className="reviews">
               {productDetail.reviews.map((review) => (

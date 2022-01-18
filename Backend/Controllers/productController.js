@@ -89,7 +89,6 @@ exports.createProductReview = catchAsyncError(async (req, res, next) => {
   };
 
   const product = await Product.findById(productId);
-
   const isReviewed = product.reviews.find(
     (review) => review.user.toString() === req.user._id.toString()
   );
