@@ -26,10 +26,11 @@ import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js";
 import Shipping from "./component/Cart/Shipping.js";
 import OrderConfirm from "./component/Cart/OrderConfirm.js";
+import Dashboard from "./component/Admin/Dashboard.js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import Payment from "./component/Cart/Payment.js";
+import ProductList from "./component/Admin/ProductList.js";
 import axios from "axios";
-
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -86,6 +87,19 @@ function App() {
         exact
         path="/password/update"
         component={UpdatePassword}
+      />
+
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/dashboard"
+        component={Dashboard}
+      />
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/products"
+        component={ProductList}
       />
 
       <Footer />

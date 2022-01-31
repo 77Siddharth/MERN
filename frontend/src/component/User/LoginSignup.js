@@ -20,9 +20,7 @@ function LoginSignup({ history, location }) {
     password: "",
   });
 
-  const { error, loading, isAuthenticated } = useSelector(
-    (state) => state.user
-  );
+  const { loading, isAuthenticated } = useSelector((state) => state.user);
 
   const { name, email, password } = User;
 

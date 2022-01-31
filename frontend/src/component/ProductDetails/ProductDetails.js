@@ -51,17 +51,11 @@ function ProductDetails({ match }) {
   };
 
   const reviewSubmitHandler = () => {
-    // const myForm = new FormData();
-
     let formData = {
       rating: rating,
       comment: comment,
       productId: match.params.id,
     };
-    // myForm.set("rating", rating);
-    // myForm.set("comment", comment);
-    // myForm.set("productId", match.params.id);
-
     dispatch(newReview(formData));
 
     setOpen(false);
@@ -83,7 +77,7 @@ function ProductDetails({ match }) {
       dispatch({ type: NEW_REVIEW_RESET });
     }
     dispatch(getProductDetail(match.params.id));
-  }, [dispatch, match.params.id]);
+  }, [dispatch, match.params.id, success]);
 
   const options = {
     edit: false,
