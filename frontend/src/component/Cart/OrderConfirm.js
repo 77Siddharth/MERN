@@ -1,7 +1,8 @@
 import { Typography } from "@material-ui/core";
-import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { LOAD_USER_REQUEST } from "../../constants/userConstants";
 import MetaData from "../layout/MetaData";
 import CheckoutSteps from "./CheckoutSteps";
 import "./OrderConfirm.css";
@@ -9,6 +10,7 @@ import "./OrderConfirm.css";
 function OrderConfirm({ history }) {
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -31,7 +33,11 @@ function OrderConfirm({ history }) {
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
     history.push("/process/payment");
   };
-
+  useEffect(() => {
+    if (!user) {
+      dispatch({ type: LOAD_USER_REQUEST });
+    }
+  }, [dispatch]);
   return (
     <Fragment>
       <MetaData title="Confirm Order" />

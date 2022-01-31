@@ -68,8 +68,8 @@ function App() {
       <ProtectedRoute exact path="/me/update" component={UpdateProfile} />
 
       <Switch>
-        <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
         <ProtectedRoute exact path="/order/confirm" component={OrderConfirm} />
+        <ProtectedRoute exact path="/order/:id" component={OrderDetails} />
       </Switch>
 
       <ProtectedRoute exact path="/orders" component={MyOrders} />
