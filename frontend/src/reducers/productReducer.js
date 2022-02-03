@@ -95,7 +95,7 @@ export const newReviewReducer = (state = {}, action) => {
       return state;
   }
 };
-
+// also update Product included
 export const deleteProductReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_PRODUCT_REQUEST:

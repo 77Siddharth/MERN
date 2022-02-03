@@ -149,6 +149,7 @@ export const createProduct = (productData) => async (dispatch) => {
 };
 
 export const updateProduct = (id, productData) => async (dispatch) => {
+  console.log("firstagain", { id, productData });
   try {
     dispatch({
       type: UPDATE_PRODUCT_REQUEST,

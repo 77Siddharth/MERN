@@ -46,6 +46,33 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     runValidators: true,
   });
 
+  let images = [];
+  if (typeof req.body.images === "string") {
+    images.push(req.body.images);
+  } else {
+    images = req.body.images;
+  }
+
+  if (images !== undefined) {
+    for (let i = 0; i < Product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(Product.images[i].public_id);
+    }
+    const imagesLink = [];
+
+    for (let i = 0; i < images.length; i++) {
+      const result = await cloudinary.v2.uploader.upload(images[i], {
+        folder: "products",
+      });
+
+      imagesLink.push({
+        public_ids: result.public_id,
+        url: result.secure_url,
+      });
+    }
+    req.body.images = imagesLink;
+  }
+
+
   res.status(200).json({
     success: true,
     product,

@@ -59,20 +59,22 @@ const UpdateProduct = ({ history, match }) => {
       setStock(productDetail.stock);
       setOldImages(productDetail.images);
     }
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
+    if (productDetail) {
+      if (error) {
+        alert.error(error);
+        dispatch(clearErrors());
+      }
 
-    if (updateError) {
-      alert.error(updateError);
-      dispatch(clearErrors());
-    }
+      if (updateError) {
+        alert.error(updateError);
+        dispatch(clearErrors());
+      }
 
-    if (isUpdated) {
-      alert.success("Product Updated Successfully");
-      history.push("/admin/products");
-      dispatch({ type: UPDATE_PRODUCT_RESET });
+      if (isUpdated) {
+        alert.success("Product Updated Successfully");
+        history.push("/admin/products");
+        dispatch({ type: UPDATE_PRODUCT_RESET });
+      }
     }
   }, [
     dispatch,
@@ -94,7 +96,7 @@ const UpdateProduct = ({ history, match }) => {
     myForm.set("price", price);
     myForm.set("description", description);
     myForm.set("category", category);
-    myForm.set("Stock", Stock);
+    myForm.set("stock", Stock);
 
     images.forEach((image) => {
       myForm.append("images", image);
@@ -125,7 +127,7 @@ const UpdateProduct = ({ history, match }) => {
 
   return (
     <Fragment>
-      <MetaData title="Create Product" />
+      <MetaData title="Update Product" />
       <div className="dashboard">
         <SideBar />
         <div className="newProductContainer">
@@ -134,7 +136,7 @@ const UpdateProduct = ({ history, match }) => {
             encType="multipart/form-data"
             onSubmit={updateProductSubmitHandler}
           >
-            <h1>Create Product</h1>
+            <h1>Update Product</h1>
 
             <div>
               <SpellcheckIcon />
@@ -223,7 +225,7 @@ const UpdateProduct = ({ history, match }) => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              Update
             </Button>
           </form>
         </div>
