@@ -32,6 +32,7 @@ import Payment from "./component/Cart/Payment.js";
 import ProductList from "./component/Admin/ProductList.js";
 import axios from "axios";
 import NewProduct from "./component/Admin/NewProduct";
+import UpdateProduct from "./component/Admin/UpdateProduct";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -109,6 +110,12 @@ function App() {
         component={ProductList}
       />
 
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/product/:id"
+        component={UpdateProduct}
+      />
       <Footer />
     </Router>
   );

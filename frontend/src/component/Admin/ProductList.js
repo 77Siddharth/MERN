@@ -6,6 +6,7 @@ import {
   clearErrors,
   deleteProduct,
   getAdminProduct,
+  updateProduct,
 } from "../../actions/productAction";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -29,6 +30,10 @@ const ProductList = ({ history }) => {
 
   const deleteProductHandler = (id) => {
     dispatch(deleteProduct(id));
+  };
+
+  const updateProductHandler = (id) => {
+    // dispatch(updateProduct(id))
   };
 
   useEffect(() => {
@@ -87,7 +92,13 @@ const ProductList = ({ history }) => {
         return (
           <Fragment>
             <Link to={`/admin/product/${params.getValue(params.id, "id")}`}>
-              <EditIcon />
+              <Button
+                onClick={() =>
+                  updateProductHandler(params.getValue(params.id, "id"))
+                }
+              >
+                <EditIcon />
+              </Button>
             </Link>
 
             <Button

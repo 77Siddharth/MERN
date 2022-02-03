@@ -20,6 +20,9 @@ import {
   DELETE_PRODUCT_REQUEST,
   DELETE_PRODUCT_SUCCESS,
   DELETE_PRODUCT_FAIL,
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAIL,
 } from "../constants/productConstants";
 
 export const getProduct =
@@ -78,6 +81,7 @@ export const getProductDetail = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.get(`/api/v1/product/${id}`);
+    console.log("This is : prod details, ", data);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,
@@ -143,6 +147,35 @@ export const createProduct = (productData) => async (dispatch) => {
     });
   }
 };
+
+export const updateProduct = (id, productData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: UPDATE_PRODUCT_REQUEST,
+    });
+
+    const config = {
+      headers: { "Content-type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/api/v1/admin/product/${id}`,
+      productData,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PRODUCT_FAIL,
+      payload: error.response,
+    });
+  }
+};
+
 
 export const deleteProduct = (id) => async (dispatch) => {
   try {
