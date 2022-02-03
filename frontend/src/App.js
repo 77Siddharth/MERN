@@ -33,6 +33,7 @@ import ProductList from "./component/Admin/ProductList.js";
 import axios from "axios";
 import NewProduct from "./component/Admin/NewProduct";
 import UpdateProduct from "./component/Admin/UpdateProduct";
+import OrderList from "./component/Admin/OrderList";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -100,7 +101,7 @@ function App() {
       <ProtectedRoute
         isAdmin={true}
         exact
-        path="/admin/product/new"
+        path="/admin/product"
         component={NewProduct}
       />
       <ProtectedRoute
@@ -115,6 +116,13 @@ function App() {
         exact
         path="/admin/product/:id"
         component={UpdateProduct}
+      />
+
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/orders"
+        component={OrderList}
       />
       <Footer />
     </Router>
