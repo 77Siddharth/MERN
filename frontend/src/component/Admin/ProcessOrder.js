@@ -72,7 +72,7 @@ const ProcessOrder = ({ history, match }) => {
             <div
               className="confirmOrderPage"
               style={{
-                display: order.orderStatus === "Delivered" ? "block" : "grid",
+                display: order.orderStatus === "delivered" ? "block" : "grid",
               }}
             >
               <div>
@@ -159,7 +159,7 @@ const ProcessOrder = ({ history, match }) => {
               {/*  */}
               <div
                 style={{
-                  display: order.orderStatus === "Delivered" ? "none" : "block",
+                  display: order.orderStatus === "delivered" ? "none" : "block",
                 }}
               >
                 <form

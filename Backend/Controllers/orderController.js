@@ -91,9 +91,11 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
   if (order.orderStatus === "delivered")
     return next(new ErrorHandler("This order has been Delivered", 400));
 
-  order.orderItems.forEach(async (order) => {
-    await updateStock(req.params.id, 1);
-  });
+  if (req.body.status === "delivered") {
+    order.orderItems.forEach(async (o) => {
+      await updateStock(o.product, o.quantity);
+    });
+  }
 
   order.orderStatus = req.body.status;
 
@@ -109,10 +111,9 @@ exports.updateOrder = catchAsyncError(async (req, res, next) => {
 });
 
 async function updateStock(productId, quantity) {
-  //   const product = await Product.findById(productId);
-  //   console.log("Prod update stock ", product);
-  //   product.stock -= quantity;
-  //   await product.save({ validateBeforeSave: false });
+  const product = await Product.findById(productId);
+  product.stock -= quantity;
+  await product.save({ validateBeforeSave: false });
 }
 
 // delete Order-- ADMIN
