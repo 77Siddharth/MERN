@@ -55,7 +55,6 @@ export const getProduct =
       });
     }
   };
-
 export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
