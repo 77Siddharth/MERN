@@ -110,10 +110,11 @@ export const ordersReducer = (state = { orders: [] }, action) => {
         loading: true,
       };
     case UPDATE_ORDER_SUCCESS:
+      console.log(action.payload, "Action payload UPDATE_ORDER_SUCCESS");
       return {
         ...state,
         loading: false,
-        isUpdated: action.payload,
+        isUpdated: true,
       };
     case DELETE_ORDER_SUCCESS:
       return {

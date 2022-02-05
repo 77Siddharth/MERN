@@ -34,6 +34,7 @@ import axios from "axios";
 import NewProduct from "./component/Admin/NewProduct";
 import UpdateProduct from "./component/Admin/UpdateProduct";
 import OrderList from "./component/Admin/OrderList";
+import ProcessOrder from "./component/Admin/ProcessOrder";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -123,6 +124,13 @@ function App() {
         exact
         path="/admin/orders"
         component={OrderList}
+      />
+
+      <ProtectedRoute
+        isAdmin={true}
+        exact
+        path="/admin/order/:id"
+        component={ProcessOrder}
       />
       <Footer />
     </Router>
