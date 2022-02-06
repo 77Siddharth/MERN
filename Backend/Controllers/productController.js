@@ -114,11 +114,10 @@ exports.getAdminProducts = catchAsyncError(async (req, res) => {
 
 exports.deleteProduct = catchAsyncError(async (req, res, next) => {
   let product = await Product.findById(req.params.id);
-
   if (!product) return next(new ErrorHandler("Page not Found", 404));
 
-  for (let i = 0; i < Product.images.length; i++) {
-    await cloudinary.v2.uploader.destroy(Product.images[i].public_id);
+  for (let i = 0; i < product.images.length; i++) {
+    await cloudinary.v2.uploader.destroy(product.images[i].public_ids);
   }
   await product.remove();
 

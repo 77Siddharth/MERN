@@ -48,12 +48,12 @@ function Sidebar() {
           <PeopleIcon /> Users
         </p>
       </Link>
-      <Link to="/admin/reviews">
+      {/* <Link to="/admin/reviews">
         <p>
           <RateReviewIcon />
           Reviews
         </p>
-      </Link>
+      </Link> */}
     </div>
   );
 }
