@@ -1,2 +1,2 @@
 # MERN
-Hosting Url : https://ecommerce-store-mern-stack.herokuapp.com/
+Hosting Url : http://roundtheclock-store.herokuapp.com/
