@@ -75,10 +75,14 @@
 
 }
 .categoryLink:hover{
-    color: tomato;
+    color: red;
 }
 
 @media screen and (max-width:600px){
+.Products-heading{
+    font: 500 2.5vmax "Roboto";
+
+}
     .filterBox{
         width: 20vmax;
         position: static;

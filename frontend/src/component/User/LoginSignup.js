@@ -20,7 +20,9 @@ function LoginSignup({ history, location }) {
     password: "",
   });
 
-  const { loading, isAuthenticated } = useSelector((state) => state.user);
+  const { loading, isAuthenticated, error } = useSelector(
+    (state) => state.user
+  );
 
   const { name, email, password } = User;
 
@@ -84,6 +86,9 @@ function LoginSignup({ history, location }) {
   const redirect = location.search ? location.search.split("=")[1] : "/account";
 
   useEffect(() => {
+    if (error) {
+      console.log("Error:", error);
+    }
     if (isAuthenticated) history.push(redirect);
   }, [dispatch, isAuthenticated, history, loading]);
 

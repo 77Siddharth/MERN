@@ -1,13 +1,15 @@
 import React from "react";
+import androidIcon from "../../../images/1.png";
+import iosIcon from "../../../images/2.png";
+
 import "./Footer.css";
 function Footer() {
   return (
     <footer id="footer">
       <div className="leftFooter">
-        <h4>Download Our App</h4>
         <p>Find Our app for Android and IOS </p>
-        <img alt="Andoid App" />
-        <img alt="IOS App" />
+        <img alt="Andoid App" src={androidIcon} />
+        <img alt="IOS App" src={iosIcon} />
       </div>
       <div className="midFooter">
         <h4>Round the clock store</h4>
@@ -17,9 +19,9 @@ function Footer() {
       <br />
       <div className="rightFooter">
         <h4>Find us on</h4>
-        <a href="www.facebook.com">Facebook</a>
-        <a href="www.instagram.com">Instagram</a>
-        <a href="www.youtube.com">Youtube</a>
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">Youtube</a>
       </div>
     </footer>
   );

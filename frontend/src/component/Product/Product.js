@@ -17,7 +17,7 @@ function Product({ product }) {
     <Link className="productCard" to={`product/${product._id}`}>
       <img src={product.images[0].url} />
       <div>
-        <h6>{product.name}</h6>
+        <h4>{product.name}</h4>
         <h5>{product.category}</h5>
       </div>
       <div>

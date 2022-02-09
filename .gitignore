@@ -1,8 +1,10 @@
 /node_modules
+/package-lock.json
 /Backend/Config/config.env
 
 # dependencies
 /frontend/node_modules
+/frontend/package-lock.json
 /frontend/.pnp
 /frontend.pnp.js
 

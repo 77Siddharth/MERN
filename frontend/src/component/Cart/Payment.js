@@ -20,7 +20,6 @@ import { clearErrors, createOrder } from "../../actions/orderAction";
 
 function Payment({ history }) {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
-  const [apiKey, setapiKey] = useState("");
   const dispatch = useDispatch();
   const alert = useAlert();
   const stripe = useStripe();
@@ -30,12 +29,12 @@ function Payment({ history }) {
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.user);
   const newOrder = useSelector((state) => state.newOrder);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (newOrder.error) {
       dispatch(clearErrors());
     }
-  }, [newOrder.error, dispatch]);
+  }, [newOrder.error, dispatch, alert, loading]);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -51,11 +50,11 @@ function Payment({ history }) {
   };
 
   const submitHandler = async (e) => {
-    console.log("Payment Initiated");
     e.preventDefault();
     payBtn.current.disabled = true;
 
     try {
+      setLoading(true);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -90,23 +89,29 @@ function Payment({ history }) {
 
       if (result.error) {
         payBtn.current.disabled = false;
+        setLoading(false);
       } else {
         if (result.paymentIntent.status === "succeeded") {
-          console.log("Payment Success");
+          setLoading(false);
+          alert.success("Payment Success");
           order.paymentInfo = {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
           console.log("orderDetails", order);
+          localStorage.removeItem("cartItems");
           dispatch(createOrder(order));
           history.push("/success");
         } else {
-          console.log("some issue occured while payment");
+          setLoading(false);
+          alert.error("some issue occured while payment");
         }
       }
     } catch (error) {
+      setLoading(false);
+      alert.error("Error at payment");
+      console.log("Payment error :", error);
       payBtn.current.disabled = false;
-      console.log("Error at payment", error);
     }
   };
   return (
@@ -135,6 +140,7 @@ function Payment({ history }) {
             ref={payBtn}
             className="paymentFormBtn"
           />
+          {loading ? <p>Payment Processing ...</p> : ""}
         </form>
       </div>
     </Fragment>

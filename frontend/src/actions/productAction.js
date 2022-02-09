@@ -80,7 +80,6 @@ export const getProductDetail = (id) => async (dispatch) => {
     });
 
     const { data } = await axios.get(`/api/v1/product/${id}`);
-    console.log("This is : prod details, ", data);
     dispatch({
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.product,
@@ -94,8 +93,6 @@ export const getProductDetail = (id) => async (dispatch) => {
 };
 
 export const newReview = (reviewData) => async (dispatch) => {
-  console.log(reviewData);
-
   try {
     dispatch({
       type: NEW_REVIEW_REQUEST,
@@ -148,7 +145,6 @@ export const createProduct = (productData) => async (dispatch) => {
 };
 
 export const updateProduct = (id, productData) => async (dispatch) => {
-  console.log("firstagain", { id, productData });
   try {
     dispatch({
       type: UPDATE_PRODUCT_REQUEST,

@@ -15,9 +15,11 @@ import { Dialog, DialogActions, DialogTitle, Button } from "@material-ui/core";
 import { DialogContent } from "@mui/material";
 import { Rating } from "@material-ui/lab";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
+import { useAlert } from "react-alert";
 
 function ProductDetails({ match }) {
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   const { loading, error, productDetail } = useSelector(
     (state) => state.productDetail
@@ -47,6 +49,7 @@ function ProductDetails({ match }) {
   };
 
   const addToCart = (id, quantity) => {
+    alert.success("item Added Successfully");
     dispatch(addItemsToCart(id, quantity));
   };
 
@@ -63,21 +66,20 @@ function ProductDetails({ match }) {
 
   useEffect(() => {
     if (error) {
-      console.log("error", error);
       dispatch(clearErrors());
     }
 
     if (reviewError) {
-      console.log("reviewError", reviewError);
+      alert.error("Review Error: ", reviewError.error.data.message);
       dispatch(clearErrors());
     }
 
     if (success) {
-      console.log(success, "Review Success");
+      alert.success("Review Submitted Successfully");
       dispatch({ type: NEW_REVIEW_RESET });
     }
     dispatch(getProductDetail(match.params.id));
-  }, [dispatch, match.params.id, success]);
+  }, [dispatch, match.params.id, success, error]);
 
   const options = {
     edit: false,

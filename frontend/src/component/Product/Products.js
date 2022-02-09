@@ -23,7 +23,7 @@ function Products({ match }) {
   const dispatch = useDispatch();
 
   const [currentPage, setcurrentPage] = useState(1);
-  const [price, setprice] = useState([0, 2500]);
+  const [price, setprice] = useState([0, 25000]);
   const [category, setcategory] = useState("");
   const [rating, setratings] = useState(0);
 
@@ -71,17 +71,18 @@ function Products({ match }) {
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
               min={0}
-              max={100000}
+              max={50000}
             />
             <Typography>Category</Typography>
             <ul className="categoryBox">
-              {categories.map((category) => (
+              {categories.map((c) => (
                 <li
                   className="categoryLink"
-                  key={category}
-                  onClick={() => setcategory(category)}
+                  key={c}
+                  style={{ color: category === c ? "tomato" : "" }}
+                  onClick={() => setcategory(c)}
                 >
-                  {category}
+                  {c}
                 </li>
               ))}
             </ul>
