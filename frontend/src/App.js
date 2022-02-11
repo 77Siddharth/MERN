@@ -152,9 +152,11 @@ function App() {
             <ProtectedRoute exact path="/process/payment" component={Payment} />
           </Elements>
         )}
+        {/* <Route component={NotFound} /> */}
+
         <Route
           component={
-            window.location.pathname === "/process/payment" ? Payment : NotFound
+            window.location.pathname === "/process/payment" ? null : NotFound
           }
         />
       </Switch>
