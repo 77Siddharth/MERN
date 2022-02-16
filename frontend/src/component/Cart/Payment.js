@@ -17,11 +17,13 @@ import {
 import "./Payment.css";
 import { useAlert } from "react-alert";
 import { clearErrors, createOrder } from "../../actions/orderAction";
+import { useHistory } from "react-router-dom";
 
-function Payment({ history }) {
+function Payment() {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
   const dispatch = useDispatch();
   const alert = useAlert();
+  const history = useHistory();
   const stripe = useStripe();
   const elements = useElements();
   const payBtn = useRef(null);
@@ -30,11 +32,21 @@ function Payment({ history }) {
   const { user } = useSelector((state) => state.user);
   const newOrder = useSelector((state) => state.newOrder);
   const [loading, setLoading] = useState(false);
+
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeApiKey");
+    setStripeApiKey(data.stripeApiKey);
+    console.log(stripeApiKey, "thisis");
+  }
+
   useEffect(() => {
     if (newOrder.error) {
       dispatch(clearErrors());
     }
-  }, [newOrder.error, dispatch, alert, loading]);
+    getStripeApiKey();
+  }, [newOrder.error, stripeApiKey, dispatch, alert, loading]);
 
   const paymentData = {
     amount: Math.round(orderInfo.totalPrice * 100),
@@ -115,7 +127,7 @@ function Payment({ history }) {
     }
   };
   return (
-    <Fragment>
+    <>
       <MetaData title={"Payment"} />
       <CheckoutSteps activeStep={2} />
       <div className="paymentContainer">
@@ -143,7 +155,7 @@ function Payment({ history }) {
           {loading ? <p>Payment Processing ...</p> : ""}
         </form>
       </div>
-    </Fragment>
+    </>
   );
 }
 

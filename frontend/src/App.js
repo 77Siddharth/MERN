@@ -40,6 +40,7 @@ import UpdateUser from "./component/Admin/UpdateUser";
 import Contact from "./component/layout/Contact/Contact";
 import About from "./component/layout/About/About";
 import NotFound from "./component/layout/NotFound/NotFound";
+import PaymentMask from "./component/Cart/PaymentMask";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
@@ -74,7 +75,7 @@ function App() {
         <Route exact path="/products" component={Products} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/about" component={About} />
-        <Route path="/products/:keyword" component={Products} />
+        <Route exact path="/products/:keyword" component={Products} />
         <ProtectedRoute exact path="/account" component={Profile} />
         <Route exact path="/product/:id" component={ProductDetails} />
         <Route exact path="/password/forgot" component={ForgotPassword} />
@@ -146,19 +147,18 @@ function App() {
           path="/admin/user/:id"
           component={UpdateUser}
         />
-
-        {stripeApiKey && (
-          <Elements stripe={loadStripe(stripeApiKey)}>
-            <ProtectedRoute exact path="/process/payment" component={Payment} />
-          </Elements>
-        )}
-        {/* <Route component={NotFound} /> */}
-
-        <Route
+        {/* <Route
           component={
             window.location.pathname === "/process/payment" ? null : NotFound
           }
-        />
+        /> */}
+
+        {/* {stripeApiKey && ( */}
+        {/* <Elements stripe={loadStripe(stripeApiKey)}> */}
+        <ProtectedRoute exact path="/process/payment" component={PaymentMask} />
+        {/* </Elements> */}
+        {/* )} */}
+        <Route component={NotFound} />
       </Switch>
       <Footer />
     </Router>
