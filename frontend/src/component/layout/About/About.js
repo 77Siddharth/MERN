@@ -23,14 +23,15 @@ const About = () => {
               Visit Instagram
             </Button>
             <span>This wesbite is made by Siddharth Agrawal</span>
+            <span>Credits: Abhishek Singh</span>
           </div>
           <div className="aboutSectionContainer2">
             <Typography component="h2">Our Brands</Typography>
-            <a href="#">
+            <a href="www.youtube.com">
               <YouTubeIcon className="youtubeSvgIcon" />
             </a>
 
-            <a href="#">
+            <a href="www.instagram.com">
               <InstagramIcon className="instagramSvgIcon" />
             </a>
           </div>

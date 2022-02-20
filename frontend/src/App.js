@@ -5,8 +5,6 @@ import WebFont from "webfontloader";
 import { useSelector } from "react-redux";
 import { loadUser } from "./actions/userAction.js";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
 import Cart from "./component/Cart/Cart.js";
 import Home from "./component/Home/Home.js";
 import Profile from "./component/User/Profile.js";
@@ -28,7 +26,6 @@ import Shipping from "./component/Cart/Shipping.js";
 import OrderConfirm from "./component/Cart/OrderConfirm.js";
 import Dashboard from "./component/Admin/Dashboard.js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
-import Payment from "./component/Cart/Payment.js";
 import ProductList from "./component/Admin/ProductList.js";
 import axios from "axios";
 import NewProduct from "./component/Admin/NewProduct";
@@ -44,13 +41,6 @@ import PaymentMask from "./component/Cart/PaymentMask";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
-  const [stripeApiKey, setStripeApiKey] = useState("");
-
-  async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeApiKey");
-    setStripeApiKey(data.stripeApiKey);
-  }
-
   useEffect(() => {
     WebFont.load({
       google: {
@@ -58,8 +48,6 @@ function App() {
       },
     });
     store.dispatch(loadUser());
-
-    getStripeApiKey();
   }, []);
 
   return (
@@ -147,17 +135,9 @@ function App() {
           path="/admin/user/:id"
           component={UpdateUser}
         />
-        {/* <Route
-          component={
-            window.location.pathname === "/process/payment" ? null : NotFound
-          }
-        /> */}
 
-        {/* {stripeApiKey && ( */}
-        {/* <Elements stripe={loadStripe(stripeApiKey)}> */}
         <ProtectedRoute exact path="/process/payment" component={PaymentMask} />
-        {/* </Elements> */}
-        {/* )} */}
+
         <Route component={NotFound} />
       </Switch>
       <Footer />

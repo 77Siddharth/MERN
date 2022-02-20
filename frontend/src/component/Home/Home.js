@@ -9,9 +9,7 @@ import Loader from "../layout/Loader/Loader";
 function Home() {
   const dispatch = useDispatch();
   //   const alert = useAlert();
-  const { loading, error, products, productCount } = useSelector(
-    (state) => state.products
-  );
+  const { loading, error, products } = useSelector((state) => state.products);
   useEffect(() => {
     //   if (error) return alert.error("error");
     dispatch(getProduct());
@@ -31,7 +29,10 @@ function Home() {
       </div>
       <h2 className="homeHeading">Featured Product</h2>
       <div className="container" id="container">
-        {products && products.map((product) => <Product product={product} />)}
+        {products &&
+          products.map((product, index) => (
+            <Product product={product} key={index} />
+          ))}
       </div>
     </Fragment>
   );

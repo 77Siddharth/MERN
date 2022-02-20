@@ -19,9 +19,9 @@ function Footer() {
       <br />
       <div className="rightFooter">
         <h4>Find us on</h4>
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="#">Youtube</a>
+        <a href="www.facebook.com">Facebook</a>
+        <a href="www.instagram.com">Instagram</a>
+        <a href="www.youtube.com">Youtube</a>
       </div>
     </footer>
   );

@@ -37,7 +37,7 @@ function OrderConfirm({ history }) {
     if (!user) {
       dispatch({ type: LOAD_USER_REQUEST });
     }
-  }, [dispatch]);
+  }, [dispatch, user]);
   return (
     <Fragment>
       <MetaData title="Confirm Order" />

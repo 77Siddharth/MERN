@@ -27,14 +27,8 @@ function Products({ match }) {
   const [category, setcategory] = useState("");
   const [rating, setratings] = useState(0);
 
-  const {
-    loading,
-    products,
-    productsCount,
-    error,
-    resultPerPage,
-    filterdProductsCount,
-  } = useSelector((state) => state.products);
+  const { loading, products, resultPerPage, filterdProductsCount } =
+    useSelector((state) => state.products);
   const keyword = match.params.keyword;
 
   const setCurrentPageNo = (e) => {

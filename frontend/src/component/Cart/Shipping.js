@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import MetaData from "../layout/MetaData";
 import PinDropIcon from "@material-ui/icons/PinDrop";

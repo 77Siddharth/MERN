@@ -10,7 +10,7 @@ import "./ForgotPassword.css";
 function ForgotPassword({ history }) {
   const dispatch = useDispatch();
 
-  const { message, error, loading, isUpdated } = useSelector(
+  const { message, error, loading } = useSelector(
     (state) => state.forgotPassword
   );
 
