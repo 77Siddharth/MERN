@@ -34,6 +34,9 @@ Payment Gateway
 
 Admin Dashboard
 
+![image](https://user-images.githubusercontent.com/30522963/200116949-0dadcff7-2dc8-4ceb-b694-1b3bb3cd8a00.png)
+
+
 - Upload products
 - Update Quantity
 - Update Order process
